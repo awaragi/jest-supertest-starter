@@ -13,8 +13,8 @@ describe('1. Users Listing API', () => {
         let data = body.data;
         expect(Array.isArray(data)).toBeTruthy();
         expect(data).toHaveLength(6);
-        let user1 = require('./user1.json');
-        let user2 = require('./user2.json');
+        let user1 = require('./_data/user1.json');
+        let user2 = require('./_data/user2.json');
         expect(data[0]).toEqual(user1);
         // example for when data is not ordered where we have too use find by id
         expect(data.find(u => u.id === 2)).toEqual(user2);
@@ -29,8 +29,8 @@ describe('1. Users Listing API', () => {
         let data = body.data;
         expect(Array.isArray(data)).toBeTruthy();
         expect(data).toHaveLength(6);
-        let user1 = require('./user1.json');
-        let user2 = require('./user2.json');
+        let user1 = require('./_data/user1.json');
+        let user2 = require('./_data/user2.json');
         expect(data[0]).toEqual(user1);
         // example for when data is not ordered where we have too use find by id
         expect(data.find(u => u.id === 2)).toEqual(user2);
@@ -38,8 +38,8 @@ describe('1. Users Listing API', () => {
     it('3. should list all users of page 1 (using API library)', async () => {
         const usersApi = new UserApi();
         let data = await usersApi.findAll(1);
-        let user1 = require('./user1.json');
-        let user2 = require('./user2.json');
+        let user1 = require('./_data/user1.json');
+        let user2 = require('./_data/user2.json');
         expect(data[0]).toEqual(user1);
         // example for when data is not ordered where we have too use find by id
         expect(data.find(u => u.id === 2)).toEqual(user2);
@@ -55,7 +55,7 @@ describe('2. User Fetch API', () => {
         expect(body).not.toHaveProperty('per_page');
         let data = body.data;
         expect(typeof data).toBe('object');
-        let user1 = require('./user1.json');
+        let user1 = require('./_data/user1.json');
         expect(data).toEqual(user1);
     });
     it('2. should find user by id (using client for implicit target environment but using explicit endpoints)', async () => {
@@ -66,13 +66,25 @@ describe('2. User Fetch API', () => {
         expect(body).not.toHaveProperty('per_page');
         let data = body.data;
         expect(typeof data).toBe('object');
-        let user1 = require('./user1.json');
+        let user1 = require('./_data/user1.json');
         expect(data).toEqual(user1);
     });
     it('3. should find user by id (using API library)', async () => {
         const usersApi = new UserApi();
         let data = await usersApi.findById(1);
-        let user1 = require('./user1.json');
+        let user1 = require('./_data/user1.json');
         expect(data).toEqual(user1);
     });
 });
+
+describe('3. User Fetch All vs FindById API', () => {
+    it('1. should find user by id for each user available (using API library)', async () => {
+        const usersApi = new UserApi();
+        let users = await usersApi.findAll(1);
+        for(let i = 0; i < users.length; i++) {
+            let expected = users[i];
+            let user = await usersApi.findById(expected.id);
+            expect(user).toEqual(expected);
+        }
+    });
+})
