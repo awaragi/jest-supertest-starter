@@ -7,10 +7,12 @@
 <!-- toc -->
 
 - [Technologies](#technologies)
+- [Folder structure](#folder-structure)
 - [Clean code](#clean-code)
 - [Sample tests](#sample-tests)
 - [API](#api)
 - [Steps to create an API and its associated tests](#steps-to-create-an-api-and-its-associated-tests)
+- [Handling multiple target environments](#handling-multiple-target-environments)
 
 <!-- tocstop -->
 
@@ -19,6 +21,27 @@
 * Supertest
 * Prettier
 * ESLint
+
+## Folder structure
+```
+/package.json
+/jest.config.js
+/eslint.json
+/prettier.json
+/src
+  /environments/
+    default.js
+    prod
+    ...
+  /api
+    domain1.api.js
+    domain2.api.js
+  /test
+    domain1/
+      feature1.spec.js
+      feature2.spec.js
+      ...
+```
 
 ## Clean code
 Usage of ESLint is fundamental for clean code (test code included). It is strongly recommended to include pre-commit 
@@ -47,3 +70,5 @@ purposes is as follows:
 See <test/feature-one/users.spec.js> for logical progression of tests from explicit to api to parameterised
 
 ## Handling multiple target environments
+Use targets section in <package.json> file to setup multiple environments. These variables are then used in the various 
+test:* scripts to setup environment variables used by API client and library

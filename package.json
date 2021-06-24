@@ -17,13 +17,17 @@
     "url": "https://github.com/awaragi/POC-jest-supertest-starter/issues"
   },
   "targets": {
-    "dev": "https://reqres.in",
-    "prod": "https://reqres.in"
+    "dev": {
+      "url": "https://reqres.in"
+    },
+    "prod": {
+      "url": "https://reqres.in"
+    }
   },
   "scripts": {
     "start": "yarn-or-npm test:prod",
-    "test:dev": "TARGET=$npm_package_targets_dev jest",
-    "test:prod": "TARGET=$npm_package_targets_prod jest",
+    "test:dev": "BASE_URL=$npm_package_targets_dev_url jest",
+    "test:prod": "BASE_URL=$npm_package_targets_prod_url jest",
     "readme:toc": "npx markdown-toc -i README.md"
   },
   "devDependencies": {
