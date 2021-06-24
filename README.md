@@ -6,17 +6,17 @@
 
 <!-- toc -->
 
-- [Technologies](#technologies)
+- [Built with](#built-with)
 - [Folder structure](#folder-structure)
 - [Clean code](#clean-code)
 - [Sample tests](#sample-tests)
-- [API](#api)
-- [Steps to create an API and its associated tests](#steps-to-create-an-api-and-its-associated-tests)
+- [API Abstraction layer](#api-abstraction-layer)
 - [Handling multiple target environments](#handling-multiple-target-environments)
+- [Steps to create an API and its associated tests](#steps-to-create-an-api-and-its-associated-tests)
 
 <!-- tocstop -->
 
-## Technologies
+## Built with
 * Jest
 * Supertest
 * Prettier
@@ -56,14 +56,14 @@ npx husky add .husky/pre-commit "npm lint && npm format"
 ```
 
 ## Sample tests
-We will be using https://reqres.in/ as an API to demonstrate the patterns to use in this project.
+We will be using [REQ | RES - Sample Test Service](https://reqres.in/) to demonstrate the patterns to use in this project.
 
-## API
-All API under test are mapped using re-usable library. The approach I recommend for creating reusable API for testing
+## API Abstraction layer
+All API under test are mapped using re-usable abstraction library. The approach I recommend for creating reusable API for testing
 purposes is as follows:
 * Write an explicit test/spec calling directly the API to incorporate
-* Once API is stable, refactor the code calling the test to src/api structure
-  * centerlise environment handling in a client class
+* Once API is stable, refactor reusabe api calls src/api
+  * centralize environment handling in a client class
 * Ensure that the existing test/spec are still passing (TTD for Testing :) )
 
 ## Handling multiple target environments
