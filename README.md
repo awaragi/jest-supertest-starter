@@ -67,8 +67,9 @@ purposes is as follows:
 * Ensure that the existing test/spec are still passing (TTD for Testing :) )
 
 ## Handling multiple target environments
-Use targets section in <package.json> file to setup multiple environments. These variables are then used in the various 
-test:* scripts to setup environment variables used by API client and library functions
+Use <src/env/> folder to setup multiple target environments. Setup reference to those environments in your 
+<package.json> by prefixing TARGET=xxx in your test:* scripts. These variables can be used in the various API client 
+and library functions
 
 ## Steps to create an API and its associated tests
 * See <test/feature-one/users.spec.js> for logical progression of tests from explicit to api to parameterised
