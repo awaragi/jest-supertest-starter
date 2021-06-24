@@ -1,5 +1,5 @@
 {
-  "name": "POC-jest-supertest-starter",
+  "name": "jest-supertest-starter",
   "version": "0.0.1",
   "description": "Starter template/project that can be used to start performing API integration testing using JEST and Supertest (with support to multi environments)",
   "main": "index.js",
@@ -7,11 +7,14 @@
   "author": "Pierre Awaragi <pierre@awaragi.com>",
   "license": "MIT",
   "keywords": [
+    "API",
+    "testing",
     "API testing",
     "Allure",
-    "Supertest",
-    "Jest",
-    "JSON schema"
+    "supertest",
+    "jest",
+    "json schema",
+    "data drive"
   ],
   "bugs": {
     "url": "https://github.com/awaragi/POC-jest-supertest-starter/issues"
@@ -28,11 +31,13 @@
     "start": "yarn-or-npm test:prod",
     "test:dev": "BASE_URL=$npm_package_targets_dev_url jest",
     "test:prod": "BASE_URL=$npm_package_targets_prod_url jest",
-    "readme:toc": "npx markdown-toc -i README.md"
+    "lint": "eslint ./src",
+    "format": "prettier --check ./src/**/* --write"
   },
   "devDependencies": {
     "eslint": "^7.29.0",
     "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-jest": "^24.3.6",
     "eslint-plugin-prettier": "^3.4.0",
     "jest": "^27.0.5",
     "jest-allure": "^0.1.3",
