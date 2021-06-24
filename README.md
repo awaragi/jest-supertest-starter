@@ -66,9 +66,11 @@ purposes is as follows:
   * centerlise environment handling in a client class
 * Ensure that the existing test/spec are still passing (TTD for Testing :) )
 
-## Steps to create an API and its associated tests
-See <test/feature-one/users.spec.js> for logical progression of tests from explicit to api to parameterised
-
 ## Handling multiple target environments
 Use targets section in <package.json> file to setup multiple environments. These variables are then used in the various 
-test:* scripts to setup environment variables used by API client and library
+test:* scripts to setup environment variables used by API client and library functions
+
+## Steps to create an API and its associated tests
+* See <test/feature-one/users.spec.js> for logical progression of tests from explicit to api to parameterised
+  * users.findAll
+  * users.findById
