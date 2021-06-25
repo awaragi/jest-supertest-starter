@@ -5,19 +5,20 @@ const AuthApi = require("../../api/auth.api");
 const UserApi = require("../../api/users.api");
 
 let token;
-let client
+let client;
 let usersApi;
 beforeAll(async () => {
   const auth = new AuthApi(new Client());
   token = await auth.login(process.env.AUTH_EMAIL, process.env.AUTH_PASSWORD);
   client = new ClientAuthenticated(token);
   usersApi = new UserApi(client);
-})
+});
 
 describe("1. Users Listing API", () => {
   it("1. should list all users (explicit target and endpoint API test - AVOID)", async () => {
-    let response = await request("https://reqres.in").get("/api/users?page=1")
-        .set("Authorization", `Bearer ${token}`);
+    let response = await request("https://reqres.in")
+      .get("/api/users?page=1")
+      .set("Authorization", `Bearer ${token}`);
     expect(response.status).toBe(200);
     let body = response.body;
     expect(body.page).toBe(1);
@@ -60,8 +61,9 @@ describe("1. Users Listing API", () => {
 
 describe("2. User Fetch API", () => {
   it("1. should find user by id (explicit target and endpoint API test - AVOID)", async () => {
-    let response = await request("https://reqres.in").get("/api/users/1")
-        .set("Authorization", `Bearer ${token}`);
+    let response = await request("https://reqres.in")
+      .get("/api/users/1")
+      .set("Authorization", `Bearer ${token}`);
     expect(response.status).toBe(200);
     let body = response.body;
     expect(body).not.toHaveProperty("page");

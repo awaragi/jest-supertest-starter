@@ -2,52 +2,52 @@ const request = require("supertest");
 const Client = require("../../client");
 const AuthApi = require("../../api/auth.api");
 
-let client
+let client;
 let authApi;
 beforeAll(async () => {
-    client = new Client();
-    authApi = new AuthApi(client);
-})
+  client = new Client();
+  authApi = new AuthApi(client);
+});
 
 describe("1. Login API", () => {
-    it("1. should allow login using correct credentials (explicit target and endpoint API test - AVOID)", async () => {
-        let response = await request("https://reqres.in").post("/api/login").send({
-            "email": "eve.holt@reqres.in",
-            "password": "cityslicka"
-        });
-        expect(response.status).toBe(200);
-        let body = response.body;
-        expect(body).toHaveProperty('token');
-        let token = body.token;
-        expect(typeof token).toBe('string');
-        expect(token.length).toBeGreaterThan(0);
+  it("1. should allow login using correct credentials (explicit target and endpoint API test - AVOID)", async () => {
+    let response = await request("https://reqres.in").post("/api/login").send({
+      email: "eve.holt@reqres.in",
+      password: "cityslicka",
     });
-    it("2. should allow login using correct credentials (using client for implicit target environment but using explicit endpoints)", async () => {
-        let response = await client.request.post("/api/login").send({
-            "email": "eve.holt@reqres.in",
-            "password": "cityslicka"
-        });
-        expect(response.status).toBe(200);
-        let body = response.body;
-        expect(body).toHaveProperty('token');
-        let token = body.token;
-        expect(typeof token).toBe('string');
-        expect(token.length).toBeGreaterThan(0);
+    expect(response.status).toBe(200);
+    let body = response.body;
+    expect(body).toHaveProperty("token");
+    let token = body.token;
+    expect(typeof token).toBe("string");
+    expect(token.length).toBeGreaterThan(0);
+  });
+  it("2. should allow login using correct credentials (using client for implicit target environment but using explicit endpoints)", async () => {
+    let response = await client.request.post("/api/login").send({
+      email: "eve.holt@reqres.in",
+      password: "cityslicka",
     });
-    it("3. should fail login using incorrect credentials (direct call to avoid complicating API abstraction)", async () => {
-        let response = await client.request.post("/api/login").send({
-            "email": "eve.holt@reqres.in",
-        });
-        expect(response.status).toBe(400);
-        let body = response.body;
-        expect(body).toHaveProperty('error');
-        let error = body.error;
-        expect(typeof error).toBe('string');
-        expect(error).toBe("Missing password");
+    expect(response.status).toBe(200);
+    let body = response.body;
+    expect(body).toHaveProperty("token");
+    let token = body.token;
+    expect(typeof token).toBe("string");
+    expect(token.length).toBeGreaterThan(0);
+  });
+  it("3. should fail login using incorrect credentials (direct call to avoid complicating API abstraction)", async () => {
+    let response = await client.request.post("/api/login").send({
+      email: "eve.holt@reqres.in",
     });
-    it("4. should allow login using correct credentials (using API library)", async () => {
-        let token = await authApi.login("eve.holt@reqres.in", "cityslicka");
-        expect(token).toBeDefined();
-        expect(token.length).toBeGreaterThan(0);
-    });
-})
+    expect(response.status).toBe(400);
+    let body = response.body;
+    expect(body).toHaveProperty("error");
+    let error = body.error;
+    expect(typeof error).toBe("string");
+    expect(error).toBe("Missing password");
+  });
+  it("4. should allow login using correct credentials (using API library)", async () => {
+    let token = await authApi.login("eve.holt@reqres.in", "cityslicka");
+    expect(token).toBeDefined();
+    expect(token.length).toBeGreaterThan(0);
+  });
+});

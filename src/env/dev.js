@@ -2,4 +2,4 @@
 process.env.BASE_URL = "https://reqres.in";
 process.env.DEBUG_REQUESTS = true;
 process.env.AUTH_EMAIL = "eve.holt@reqres.in";
-process.env.AUTH_PASSWORD="cityslicka";
+process.env.AUTH_PASSWORD = "cityslicka";
