@@ -80,15 +80,16 @@ and library functions
 
 ## Story outline
 Here are the Steps to create an API and its associated tests
-* See <test/auth.feature/auth.spec.js> for logical progression of tests from explicit to api to parameterised
+* See <src/test/auth.feature/auth.spec.js> for logical progression of tests from explicit to api to parameterised
   * login (explicit)
   * login (direct but using standard client)
   * login (direct to test a negative test case)
   * login (implicit using AuthApi)
-* See <test/users.features/users.js> for similar progressions
+* See <src/test/users.feature/users.spec.js> for similar progressions
   * Before All
     * Use AuthApi to generate token
     * Create Authenticated Client instance
     * Create User API instance
   * users.findAll
   * users.findById
+* See <src/test/register.feature/register.spec.js> for combining API in complexe tests

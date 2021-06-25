@@ -4,14 +4,16 @@ const ClientAuthenticated = require("../../client-authenticated");
 const AuthApi = require("../../api/auth.api");
 const UserApi = require("../../api/users.api");
 
+let anonymous;
 let token;
-let client;
+let authenticated;
 let usersApi;
 beforeAll(async () => {
-  const auth = new AuthApi(new Client());
+  anonymous = new Client();
+  const auth = new AuthApi(anonymous);
   token = await auth.login(process.env.AUTH_EMAIL, process.env.AUTH_PASSWORD);
-  client = new ClientAuthenticated(token);
-  usersApi = new UserApi(client);
+  authenticated = new ClientAuthenticated(token);
+  usersApi = new UserApi(authenticated);
 });
 
 describe("1. Users Listing API", () => {
@@ -34,7 +36,7 @@ describe("1. Users Listing API", () => {
     expect(data.find((u) => u.id === 2)).toEqual(user2);
   });
   it("2. should list all users (using client for implicit target environment but using explicit endpoints)", async () => {
-    let response = await client.request.get("/api/users?page=1");
+    let response = await authenticated.request.get("/api/users?page=1");
     expect(response.status).toBe(200);
     let body = response.body;
     expect(body.page).toBe(1);
@@ -74,7 +76,7 @@ describe("2. User Fetch API", () => {
     expect(data).toEqual(user1);
   });
   it("2. should find user by id (using client for implicit target environment but using explicit endpoints)", async () => {
-    let response = await client.request.get("/api/users/1");
+    let response = await authenticated.request.get("/api/users/1");
     expect(response.status).toBe(200);
     let body = response.body;
     expect(body).not.toHaveProperty("page");
