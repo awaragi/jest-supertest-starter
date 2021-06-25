@@ -1,22 +1,20 @@
 const request = require('supertest');
 const defaults = require('superagent-defaults');
 
-const baseUrlEnvName = 'BASE_URL';
+const defaultHeaders = {
+    "Content-Type": "application/json"
+};
 
 class Client
 {
-    constructor(standardHeaders = {
-        "Content-Type": "application/json"
-    }) {
-        // get base url from environment
-        const baseUrl = process.env[baseUrlEnvName];
-        if (baseUrl === undefined) {
-            throw new Error(`Missing ${baseUrlEnvName} environment variable!`);
-        }
+    constructor(headers = {}) {
+        const baseUrl = process.env['BASE_URL'];
+        expect(baseUrl).toBeDefined();
+
         this.superagent = request(baseUrl);
         this.request = defaults(this.superagent);
 
-        this.setupHeaders(standardHeaders);
+        this.setupHeaders(Object.assign({}, defaultHeaders, headers));
         this.setupEvents();
     }
 

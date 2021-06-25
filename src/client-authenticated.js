@@ -1,13 +1,10 @@
 const Client = require('./client');
 
 class ClientAuthenticated extends Client {
-    constructor(authorizationBearerToken, standardHeaders = {}) {
-        const headers = {};
-        Object.assign(headers, standardHeaders);
-        Object.assign(headers, {
+    constructor(authorizationBearerToken, headers = {}) {
+        super(Object.assign({}, {
             "Authorization": `Bearer ${authorizationBearerToken}`
-        });
-        super(headers);
+        }, headers));
     }
 }
 

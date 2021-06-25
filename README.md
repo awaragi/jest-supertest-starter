@@ -12,7 +12,7 @@
 - [Sample tests](#sample-tests)
 - [API Abstraction layer](#api-abstraction-layer)
 - [Handling multiple target environments](#handling-multiple-target-environments)
-- [Steps to create an API and its associated tests](#steps-to-create-an-api-and-its-associated-tests)
+- [Story outline](#story-outline)
 
 <!-- tocstop -->
 
@@ -24,22 +24,26 @@
 
 ## Folder structure
 ```
-/package.json
-/jest.config.js
-/eslint.json
-/prettier.json
-/src
-  /environments/
-    default.js
-    prod
-    ...
-  /api
-    domain1.api.js
-    domain2.api.js
-  /test
-    domain1/
-      feature1.spec.js
-      feature2.spec.js
+/
+  README.md
+  package.json
+  jest.config.js
+  eslintrc
+  prettierrc
+  src
+    /env/
+      dev.js
+      prod.js
+      ...
+    /api
+      domain1.api.js
+      domain2.api.js
+      ...
+    /test
+      domain1/
+        feature1.spec.js
+        feature2.spec.js
+        ...
       ...
 ```
 
@@ -66,12 +70,25 @@ purposes is as follows:
   * centralize environment handling in a client class
 * Ensure that the existing test/spec are still passing (TTD for Testing :) )
 
+>Important to keep the API abstraction layer to only happy path. They should in general validate input and validate API response
+> to be successful.
+
 ## Handling multiple target environments
 Use <src/env/> folder to setup multiple target environments. Setup reference to those environments in your 
 <package.json> by prefixing TARGET=xxx in your test:* scripts. These variables can be used in the various API client 
 and library functions
 
-## Steps to create an API and its associated tests
-* See <test/feature-one/users.spec.js> for logical progression of tests from explicit to api to parameterised
+## Story outline
+Here are the Steps to create an API and its associated tests
+* See <test/auth.feature/auth.spec.js> for logical progression of tests from explicit to api to parameterised
+  * login (explicit)
+  * login (direct but using standard client)
+  * login (direct to test a negative test case)
+  * login (implicit using AuthApi)
+* See <test/users.features/users.js> for similar progressions
+  * Before All
+    * Use AuthApi to generate token
+    * Create Authenticated Client instance
+    * Create User API instance
   * users.findAll
   * users.findById
