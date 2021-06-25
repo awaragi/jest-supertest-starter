@@ -103,3 +103,22 @@ describe("3. User Fetch All vs FindById API", () => {
     }
   });
 });
+
+describe("4. DTT User findById API", () => {
+  // Normally this data comes in from CSV or API source. For demo purposes we will load it from JSON
+  // File that is a copy of the user listing API
+  let users = require("./_data/users.json")
+    .sort(() => 0.5 - Math.random()) // random order of data
+    .slice(0, 5) // smaller set to keep things fast
+    .map((u) => [u.id, u.email, u.first_name, u.last_name]);
+  it.each(users)(
+    "%#. should find user by id %d for each user available (using API library)",
+    async (id, email, firstName, lastName) => {
+      let user = await usersApi.findById(id);
+      expect(user.id).toEqual(id);
+      expect(user.email).toEqual(email);
+      expect(user.first_name).toEqual(firstName);
+      expect(user.last_name).toEqual(lastName);
+    }
+  );
+});

@@ -14,7 +14,10 @@ beforeAll(async () => {
   anonymous = new Client();
   registerApi = new RegisterApi(anonymous);
   authApi = new AuthApi(anonymous);
-  token = await authApi.login(process.env.AUTH_EMAIL, process.env.AUTH_PASSWORD);
+  token = await authApi.login(
+    process.env.AUTH_EMAIL,
+    process.env.AUTH_PASSWORD
+  );
   authenticated = new ClientAuthenticated(token);
   usersApi = new UserApi(authenticated);
 });
