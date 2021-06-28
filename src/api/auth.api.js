@@ -5,7 +5,7 @@ class AuthApi {
   async login(email, password) {
     const response = await this.client.request.post("/api/login").send({
       email,
-      password,
+      password
     });
     expect(response.status).toBe(200);
     let body = response.body;

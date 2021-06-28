@@ -15,7 +15,7 @@ class RegisterApi {
   generatePayload(email, password) {
     return {
       email,
-      password,
+      password
     };
   }
 
@@ -25,7 +25,9 @@ class RegisterApi {
    * @returns {Promise<{id, token}>}
    */
   async register(payload) {
-    const response = await this.client.request.post("/api/register").send(payload);
+    const response = await this.client.request
+      .post("/api/register")
+      .send(payload);
     expect(response.status).toBe(200);
     let body = response.body;
     expect(body).toHaveProperty("id");
