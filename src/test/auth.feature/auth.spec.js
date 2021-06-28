@@ -1,6 +1,7 @@
 const request = require("supertest");
 const Client = require("../../client");
 const AuthApi = require("../../api/auth.api");
+const authValidations = require('../lib/auth.validations');
 
 let client;
 let authApi;
@@ -19,8 +20,7 @@ describe("1. Login API", () => {
     let body = response.body;
     expect(body).toHaveProperty("token");
     let token = body.token;
-    expect(typeof token).toBe("string");
-    expect(token.length).toBeGreaterThan(0);
+    authValidations.validateToken(token);
   });
   it("2. should allow login using correct credentials (using client for implicit target environment but using explicit endpoints)", async () => {
     let response = await client.request.post("/api/login").send({
@@ -31,8 +31,7 @@ describe("1. Login API", () => {
     let body = response.body;
     expect(body).toHaveProperty("token");
     let token = body.token;
-    expect(typeof token).toBe("string");
-    expect(token.length).toBeGreaterThan(0);
+    authValidations.validateToken(token);
   });
   it("3. should fail login using incorrect credentials (direct call to avoid complicating API abstraction)", async () => {
     let response = await client.request.post("/api/login").send({
@@ -47,7 +46,9 @@ describe("1. Login API", () => {
   });
   it("4. should allow login using correct credentials (using API library)", async () => {
     let token = await authApi.login("eve.holt@reqres.in", "cityslicka");
-    expect(token).toBeDefined();
-    expect(token.length).toBeGreaterThan(0);
+    // standard validations
+    authValidations.validateToken(token);
+    // specific test validations
+    expect(token).toMatch(/[a-zA-Z0-9]+/);
   });
 });

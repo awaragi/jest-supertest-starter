@@ -27,7 +27,8 @@ describe("1. User Registration API", () => {
     let email = "eve.holt@reqres.in";
     let password = "pistol";
 
-    const { id } = await registerApi.register(email, password);
+    const payload = registerApi.generatePayload(email, password);
+    const { id } = await registerApi.register(payload);
     let user = await usersApi.findById(id);
     expect(user.email).toBe(email);
     const token = await authApi.login(email, password);
