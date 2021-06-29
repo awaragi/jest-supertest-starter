@@ -89,6 +89,18 @@ All API under test can be made available using re-usable abstraction library. Th
 Use <src/env/> folder to setup multiple target environments. Setup reference to those environments in your 
 <package.json> by prefixing TARGET=xxx in your test:* scripts. These variables can be used in the various library functions (client, API, etc.).
 
+### Windows vs Linux/Mac
+in <./package.json> scripts section, change the following to be windows compatible:
+```
+    "test:dev": "TARGET=dev jest",
+    "test:prod": "TARGET=prod jest",
+```
+to (**Spacing is important**)
+```
+    "test:dev": "set TARGET=dev&&jest",
+    "test:prod": "set TARGET=prod&&jest",
+```
+
 ## Data driven testing
 Data Driven Testing is outside the scope of this starter project however:
 * the <src/test/users.feature/users.spec.js> contains a DDT test using JSON source file.

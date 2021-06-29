@@ -20,7 +20,7 @@
     "url": "https://github.com/awaragi/jest-supertest-starter/issues"
   },
   "scripts": {
-    "start": "yarn-or-npm test:prod",
+    "start": "yarn-or-npm run test:prod",
     "test:dev": "TARGET=dev jest",
     "test:prod": "TARGET=prod jest",
     "lint": "eslint ./src",
