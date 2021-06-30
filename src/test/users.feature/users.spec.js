@@ -19,7 +19,8 @@ beforeAll(async () => {
 describe("1. Users Listing API", () => {
   it("1. should list all users (explicit target and endpoint API test - AVOID)", async () => {
     let response = await request("https://reqres.in")
-      .get("/api/users?page=1")
+      .get("/api/users")
+      .query({ page: 1 })
       .set("Authorization", `Bearer ${token}`);
     expect(response.status).toBe(200);
     let body = response.body;
@@ -36,7 +37,9 @@ describe("1. Users Listing API", () => {
     expect(data.find((u) => u.id === 2)).toEqual(user2);
   });
   it("2. should list all users (using client for implicit target environment but using explicit endpoints)", async () => {
-    let response = await authenticated.request.get("/api/users?page=1");
+    let response = await authenticated.request
+      .get("/api/users")
+      .query({ page: 1 });
     expect(response.status).toBe(200);
     let body = response.body;
     expect(body.page).toBe(1);

@@ -11,7 +11,9 @@ class UsersApi {
    * @returns {Promise<*>}
    */
   async findAll(page) {
-    const response = await this.client.request.get(`/api/users?page=${page}`);
+    const response = await this.client.request
+      .get(`/api/users`)
+      .query({ page });
     expect(response.status).toBe(200);
     let body = response.body;
     expect(body).toHaveProperty("data");
