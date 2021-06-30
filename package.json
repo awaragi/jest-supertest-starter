@@ -1,6 +1,6 @@
 {
   "name": "jest-supertest-starter",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Starter template/project that can be used to start performing API integration testing using JEST and Supertest (with support to multi environments)",
   "main": "index.js",
   "repository": "git@github.com:awaragi/jest-supertest-starter.git",
